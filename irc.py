@@ -3,6 +3,7 @@
 
 import socket, string
 from urllib.request import urlopen
+import sql
 
 SERVER = "irc.ircnet.ne.jp"
 PORT = 6667
