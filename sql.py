@@ -28,7 +28,7 @@ class mysql:
         """insert the log into the mysql"""
         con = self.__connect("sql.ini")
         cur = con.cursor()
-        cur.execute("INSERT INTO irclog (user, type, content) VALUES (\"%s\", \"%s\", \"%s\")", 
+        cur.execute("INSERT INTO irclog (user, type, content) VALUES (%s, %s, %s)", 
                 (user_name, logtype, content))
         cur.connection.commit()
         cur.close()
