@@ -7,7 +7,8 @@ IMAGEDownloader
 VIDEODownloader
 
 ## DATABASE
-user
+・user
+
   id INT(5) NOT NULL AUTO_INCREMENT
   
   l_name VARCHAR(20)
