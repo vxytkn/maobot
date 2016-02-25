@@ -8,4 +8,9 @@ VIDEODownloader
 
 ## DATABASE
 user
- id INT(7)
+  id INT(5) NOT NULL AUTO_INCREMENT
+  l_name VARCHAR(20)
+  n_name VARCHAR(20)
+  password VARCHAR(100)
+
+irclog
