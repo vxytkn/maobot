@@ -7,7 +7,7 @@ IMAGEDownloader
 VIDEODownloader
 
 ## DATABASE
-・user
+###user
 
   id INT(5) NOT NULL AUTO_INCREMENT
   
@@ -17,4 +17,4 @@ VIDEODownloader
   
   password VARCHAR(100)
 
-irclog
+###irclog
