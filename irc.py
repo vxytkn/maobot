@@ -42,9 +42,9 @@ class irc():
             if msg[0] == "PING":
                 print("hai")
                 self.__send_data("PONG %s" % msg[1])
-            if (len(msg) >= 3 and msg[3] == ":PING"):
+            if (len(msg) >= 4 and msg[3] == ":PING"):
                 self.__send_msg("PONG")
-            if (len(msg) >= 3 and "ガルパン" in msg[3]):
+            if (len(msg) >= 4 and "ガルパン" in msg[3]):
                 self.send_msg("ガルパンはいいぞ")
 
 if __name__ == '__main__':
