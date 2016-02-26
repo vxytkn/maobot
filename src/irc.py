@@ -9,7 +9,7 @@ class irc():
         self.server = "irc.ircnet.ne.jp"
         self.port = 6667
         self.nickname = "maobot_test"
-        self.channel = "#maobot_test"
+        self.channel = "#電ちゃんハァハァ"
 
     IRC = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 

@@ -36,10 +36,10 @@ class sql:
         self.con = None
         return True
 
-    def insert_log(self, user_name, logtype, content):
+    def insert_log(self, user_name, logtype, channel, content):
         """insert the log into the mysql"""
-        self.cur.execute("INSERT INTO irclog (user, type, content) VALUES (%s, %s, %s)", 
-                (user_name, logtype, content))
+        self.cur.execute("INSERT INTO irclog (user, type, channel, content) VALUES (%s, %s, %s, %s)", 
+                (user_name, logtype, channel, content))
 
     def select_id(self, log_id, colume=None):
         result = None
@@ -74,6 +74,20 @@ class sql:
         else:
             return False
         return False
+
+    def show_channels(self):
+        result = None
+        self.cur.execute("SELECT * FROM channel")
+        result = self.cur.fetchall()
+        return result
+
+    def insert_channel(self, channel):
+        self.cur.execute("SELECT * FROM channel WHERE name=%s", channel)
+        result = self.cur.fetchall()
+        for row in result:
+            if row[1] == channel:
+                return
+        self.cur.execute("INSERT INTO channel (name) VALUES (%s)", channel)
 
 if __name__ == "__main__":
     sql = sql()
