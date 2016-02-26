@@ -18,6 +18,16 @@ VIDEODownloader
   n_name VARCHAR(20)                      -> nickname for IRC
   
   password VARCHAR(100)
+  
+###channel
+
+  id INT(5) NOT NULL AUTO_INCREMENt
+  
+  name VARCHAR(20)
+  
+  topic VARCHAR(100)
+  
+  usernum INT(3)
 
 ###irclog
   
