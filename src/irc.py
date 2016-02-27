@@ -23,7 +23,7 @@ class irc():
         self._channel.append(channel)
 
     def join(self, channel):
-        self.__send_data("JOIN %s" % channel)
+        self.send_data("JOIN %s" % channel)
     
     def join_all(self):
         for ch in self._channel:
@@ -31,8 +31,8 @@ class irc():
 
     def login(self, username="maobot_test", password=None, realname="maobot_test", 
             hostname="IRCnet", servername="IRCnet"):
-        self.__send_data("USER %s %s %s %s" % (username, hostname, servername, realname))
-        self.__send_data("NICK " + self.nickname)
+        self.send_data("USER %s %s %s %s" % (username, hostname, servername, realname))
+        self.send_data("NICK " + self.nickname)
 
     def send_msg(self, msg):
         self.send_data("PRIVMSG %s %s" % (self.channel, msg))
