@@ -16,7 +16,7 @@ class irc():
     def irc_conn(self):
         self.IRC.connect((self.server, self.port))
 
-    def __send_data(self, command):
+    def send_data(self, command):
         self.IRC.send(command.encode("ISO-2022-JP") + b'\n')
 
     def add_channel(self, channel):
@@ -35,7 +35,7 @@ class irc():
         self.__send_data("NICK " + self.nickname)
 
     def send_msg(self, msg):
-        self.__send_data("PRIVMSG %s %s" % (self.channel, msg))
+        self.send_data("PRIVMSG %s %s" % (self.channel, msg))
 
     def test(self):
         self.irc_conn()
@@ -48,9 +48,9 @@ class irc():
             print(msg)
             if msg[0] == "PING":
                 print("hai")
-                self.__send_data("PONG %s" % msg[1])
+                self.send_data("PONG %s" % msg[1])
             if (len(msg) >= 4 and msg[3] == ":PING"):
-                self.__send_msg("PONG")
+                self.send_msg("PONG")
             if (len(msg) >= 4 and msg[1] == "PRIVMSG"):
                 self.send_msg("ガルパンはいいぞ")
 
