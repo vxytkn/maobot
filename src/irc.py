@@ -9,7 +9,7 @@ class irc():
         self.server = "irc.ircnet.ne.jp"
         self.port = 6667
         self.nickname = "maobot_test"
-        self.channel = "#電ちゃんハァハァ"
+        self._channel = []
 
     IRC = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -19,8 +19,15 @@ class irc():
     def __send_data(self, command):
         self.IRC.send(command.encode("ISO-2022-JP") + b'\n')
 
-    def join(self):
-        self.__send_data("JOIN %s" % self.channel)
+    def add_channel(self, channel):
+        self._channel.append(channel)
+
+    def join(self, channel):
+        self.__send_data("JOIN %s" % channel)
+    
+    def join_all(self):
+        for ch in self._channel:
+            self.join(ch)
 
     def login(self, username="maobot_test", password=None, realname="maobot_test", 
             hostname="IRCnet", servername="IRCnet"):

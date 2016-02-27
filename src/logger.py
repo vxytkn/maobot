@@ -8,9 +8,12 @@ import user
 i = irc.irc()
 s = sql.sql()
 
-i.irc_conn()
-i.login()
-i.join()
+with s:
+    i.irc_conn()
+    i.login()
+    for ch in s.show_channels():
+        i.add_channel(ch[1])
+    i.join_all()
 
 while(1):
     buffer = i.IRC.recv(1024).decode("iso-2022-jp")

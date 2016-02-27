@@ -92,7 +92,7 @@ class sql:
 if __name__ == "__main__":
     sql = sql()
     with sql:
-        sql.insert_log("test", "test", "test from sql.py")
+        sql.insert_log("test", "test", "test", "test from sql.py")
         for row in sql.select_all():
             print(row)
 

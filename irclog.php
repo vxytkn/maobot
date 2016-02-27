@@ -1,11 +1,16 @@
-
 <!doctype html>
 <html>
 <head>
  <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
  <title> IRC LOG </title>
+ <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ <script src="js/bootstrap.min.js"></script>
+
 <?php
 session_start();
 session_regenerate_id(true);
@@ -20,6 +25,8 @@ $sql_server = $default["server"];
 $sql_pass   = $default["passwd"];
 $sql_db     = $default["db"];
 $sql = new mysqli($sql_server, $sql_user, $sql_pass);
+
+//sql error
 if($sql->connect_error) {
     print("<p>DB Failed." . $sql->connect_error);
     exit();

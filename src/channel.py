@@ -8,5 +8,3 @@ class channel:
         self.topic = ""
         self.usernum = 0
 
-    def
-
