@@ -17,7 +17,11 @@ with s:
 
 while(1):
     buffer = i.IRC.recv(1024).decode("iso-2022-jp")
+    print(buffer)
     msg = buffer.split()
+    #print(msg)
+    if msg[0] == "PING":
+        i.send_msg("PONG %s", msg[1])
     if len(msg) >= 4 and msg[1] == "PRIVMSG":
         u_info = msg[0]
         l_msg = ""
@@ -27,4 +31,4 @@ while(1):
         l_msg = " ".join(msg[3:])
         with s:
             s.insert_channel(msg[2])
-            s.insert_log(spker.l_name, msg[1], msg[2], msg[3][1:])
+            s.insert_log(spker.l_name, msg[1], msg[2], l_msg[1:])
