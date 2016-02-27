@@ -21,7 +21,7 @@ while(1):
     msg = buffer.split()
     #print(msg)
     if msg[0] == "PING":
-        i.send_data("PONG %s", msg[1])
+        i.send_data("PONG %s" % msg[1])
     if len(msg) >= 4 and msg[1] == "PRIVMSG":
         u_info = msg[0]
         l_msg = ""
