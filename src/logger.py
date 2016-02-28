@@ -24,11 +24,10 @@ while(1):
         i.send_data("PONG %s" % msg[1])
     if len(msg) >= 4 and msg[1] == "PRIVMSG":
         u_info = msg[0]
-        l_msg = ""
+        i_msg = buffer[buffer.find(buffer.split()[3])+1:]
         spker = user.user()
         spker.l_name = u_info[1:u_info.find("!")]
         spker.n_name = u_info[(u_info.find("!")+2):u_info.find("@")]
-        l_msg = " ".join(msg[3:])
         with s:
             s.insert_channel(msg[2])
-            s.insert_log(spker.l_name, msg[1], msg[2], l_msg[1:])
+            s.insert_log(spker.l_name, msg[1], msg[2], i_msg[1:])
