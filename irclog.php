@@ -6,6 +6,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
  <title> IRC LOG </title>
  <link href="css/bootstrap.min.css" rel="stylesheet">
+ <link href="css/irc.css" rel="stylesheet">
 </head>
 <body>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -31,29 +32,37 @@ if($sql->connect_error) {
     print("<p>DB Failed." . $sql->connect_error);
     exit();
 }
-
 $sql->select_db($sql_db);
-$starttime = $sql->real_escape_string($_POST["starttime"]);
-$endtime   = $sql->real_escape_string($_POST["endtime"]);
-#print($starttime . "~" . $endtime . "<br>");
-$query = "SELECT * FROM irclog WHERE created BETWEEN '" . $starttime . "' AND '" . $endtime . "'";
-$result = $sql->query($query);
-#print($result);
-while($row = $result->fetch_array()) {
-    echo('' . $row[5] . ' ' . '[' . $row[1] . '] ' . $row[4] . "<br>");
+if(isset($_POST["starttime"]) && isset($_POST["endtime"]) && isset($_POST["channel"])) {
+    $starttime = $sql->real_escape_string($_POST["starttime"]);
+    $endtime   = $sql->real_escape_string($_POST["endtime"]);
+    $channel   = $sql->real_escape_string($_POST["channel"]);
+    #print($starttime . "~" . $endtime . "<br>");
+    $query = "SELECT * FROM irclog WHERE channel='". $channel . "' AND created BETWEEN '" . $starttime . "' AND '" . $endtime . "'";
+    $result = $sql->query($query);
+    #print($result);
+
+    #echo(' <table class="table">');
+    #echo(' <tr>');
+    while($row = $result->fetch_array()) {
+        #echo(' <tr>');
+        echo('  <div class="irc">' . $row[5] . '</div><div class="irc"> [' . $row[1] . ']</div><div class="irc"> ' . $row[4] . "</div><br>");
+        #echo(' </tr>');
+    }
+    #echo(' </tr>');
+    #echo(' </table>');
 }
 
 print(' <form action="/maobot/irclog.php#bottom" method="POST">');
-print(' <select id="channel" name="channel" onchange="submit();">');
+print(' <select id="channel" name="channel" onchange="this.form.submit()">');
 $query = "SELECT * FROM channel";
 $result = $sql->query($query);
 while($row = $result->fetch_array()) {
      print('  <option value="' . $row[1] . '">' . $row[1] . '</option>');
 }
-
+echo(' </select>');
 $sql->close();
 ?>
- <fieldset>
  <input type="datetime-local" id="starttime" name="starttime" value="<?php echo(date('Y-m-d H:i:s', time()-60*60*24)) ?>">
  <input type="datetime-local" id="endtime" name="endtime" value="<?php echo(date('Y-m-d H:i:s')) ?>">
  <input type="submit" id="submit" name="submit" value="submit">
