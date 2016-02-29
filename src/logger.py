@@ -19,6 +19,7 @@ while(1):
     buffer = i.IRC.recv(1024).decode("iso-2022-jp")
     msg = buffer.split()
     #print(msg)
+    #PING PONG
     if msg[0] == "PING":
         i.send_data("PONG %s" % msg[1])
     if len(msg) >= 4 and msg[1] == "PRIVMSG":

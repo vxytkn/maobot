@@ -1,6 +1,10 @@
 # maobot
 an irc bot for KGB
 
+## SETTINGS
+chown www-data:www-data -R maobot
+chmod 400 sql.ini
+
 ## TODO
 IRCLogger
 IMAGEDownloader
