@@ -15,6 +15,9 @@ def check(buffer, msg, i, s):
         i.join(j_ch)
         with s:
             s.insert_channel(j_ch)
+    if "[exit]#" in buffer:
+        e_ch = buffer[buffer.find("[exit]")+6:]
+        i.part(e_ch)
     with s:
         s.insert_channel(msg[2])
-        s.insert_log(spker.l_name, msg[1], msg[2], i_msg[1:])
+        s.insert_log(spker.l_name, msg[1], msg[2], i_msg)

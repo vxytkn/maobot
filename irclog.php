@@ -32,6 +32,7 @@ if($sql->connect_error) {
     print("<p>DB Failed." . $sql->connect_error);
     exit();
 }
+$sql->set_charset("utf8");
 $sql->select_db($sql_db);
 if(isset($_POST["starttime"]) && isset($_POST["endtime"]) && isset($_POST["channel"])) {
     $starttime = $sql->real_escape_string($_POST["starttime"]);
@@ -42,18 +43,16 @@ if(isset($_POST["starttime"]) && isset($_POST["endtime"]) && isset($_POST["chann
     $result = $sql->query($query);
     #print($result);
 
-    #echo(' <table class="table">');
-    #echo(' <tr>');
     while($row = $result->fetch_array()) {
-        #echo(' <tr>');
         echo('  <div class="irc">' . $row[5] . '</div><div class="irc"> [' . $row[1] . ']</div><div class="irc"> ' . $row[4] . "</div><br>");
-        #echo(' </tr>');
     }
-    #echo(' </tr>');
-    #echo(' </table>');
 }
-
-print(' <form action="/maobot/irclog.php#bottom" method="POST">');
+$val = "";
+if (isset($_POST["channel"])) {
+    $val = $_POST["channel"];
+}
+print(' <form action="/mypage/maobot/irclog.php#bottom" method="POST">');
+/*
 print(' <select id="channel" name="channel" onchange="this.form.submit()">');
 $query = "SELECT * FROM channel";
 $result = $sql->query($query);
@@ -61,11 +60,34 @@ while($row = $result->fetch_array()) {
      print('  <option value="' . $row[1] . '">' . $row[1] . '</option>');
 }
 echo(' </select>');
+ */
+
+echo(disp_list($sql, $val));
 $sql->close();
 ?>
- <input type="datetime-local" id="starttime" name="starttime" value="<?php echo(date('Y-m-d H:i:s', time()-60*60*24)) ?>">
- <input type="datetime-local" id="endtime" name="endtime" value="<?php echo(date('Y-m-d H:i:s')) ?>">
+ <input type="datetime-local" id="starttime" name="starttime" value="<?php echo(date('Y-m-d\TH:i:s', time()-60*60*24)) ?>">
+ <input type="datetime-local" id="endtime" name="endtime" value="<?php echo(date('Y-m-d\TH:i:s')) ?>">
  <input type="submit" id="submit" name="submit" value="submit">
  </form>
+ <div id="bottom"></div>
 </body>
 </html>
+
+<?php
+//----------------------
+// funcitons            
+//----------------------
+
+function disp_list($conn, $selected_value) {
+    $query = "SELECT * FROM channel";
+    $res = $conn->query($query) or die("Failed to get the data.");
+    echo("<select name=\"channel\">");
+    while($row = $res->fetch_array()) {
+        echo("<option ");
+        if ($selected_value == $row[1]) {
+            echo("selected ");
+        }
+        echo(" value=\"" . $row[1] . "\">" . $row[1] . "</option>");
+    }
+    echo("</select>");
+}

@@ -29,6 +29,9 @@ class irc():
         for ch in self._channel:
             self.join(ch)
 
+    def part(self, channel):
+        self.send_data("PART %s" % channel)
+
     def login(self, username="maobot_test", password=None, realname="maobot_test", 
             hostname="IRCnet", servername="IRCnet"):
         self.send_data("USER %s %s %s %s" % (username, hostname, servername, realname))
