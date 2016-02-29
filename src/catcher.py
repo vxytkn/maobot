@@ -1,6 +1,7 @@
 #!/usr/local/bin/env python3
 #-*- coding = utf-8 -*-
 
+from checker import check
 import irc
 import sql
 import user
@@ -19,13 +20,15 @@ while(1):
     try:
         buffer = i.IRC.recv(1024).decode("iso-2022-jp")
     except UnicodeDecodeError as e:
-        buffer = e
+        buffer = "ERROR: UnicodeDecodeError"
     msg = buffer.split()
-    #print(msg)
+    print(msg)
     #PING PONG
     if msg[0] == "PING":
         i.send_data("PONG %s" % msg[1])
     if len(msg) >= 4 and msg[1] == "PRIVMSG":
+        check(buffer, msg, i, s)
+        """
         u_info = msg[0]
         i_msg = buffer[buffer.find(buffer.split()[3])+1:]
         spker = user.user()
@@ -39,3 +42,4 @@ while(1):
         with s:
             s.insert_channel(msg[2])
             s.insert_log(spker.l_name, msg[1], msg[2], i_msg[1:])
+        """
