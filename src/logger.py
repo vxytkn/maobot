@@ -16,7 +16,10 @@ with s:
     i.join_all()
 
 while(1):
-    buffer = i.IRC.recv(1024).decode("iso-2022-jp")
+    try:
+        buffer = i.IRC.recv(1024).decode("iso-2022-jp")
+    except UnicodeDecodeError as e:
+        buffer = e
     msg = buffer.split()
     #print(msg)
     #PING PONG
