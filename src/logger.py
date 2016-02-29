@@ -32,7 +32,8 @@ while(1):
         spker.l_name = u_info[1:u_info.find("!")]
         spker.n_name = u_info[(u_info.find("!")+2):u_info.find("@")]
         if "[enter]#" in buffer:
-            s.insert_channel(buffer[buffer.find("[enter]")+7:])
+            with s:
+                s.insert_channel(buffer[buffer.find("[enter]")+7:])
         with s:
             s.insert_channel(msg[2])
             s.insert_log(spker.l_name, msg[1], msg[2], i_msg[1:])
